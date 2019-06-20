@@ -1,0 +1,7 @@
+.counter-large {
+  font-size: 3rem;
+  position: relative;
+  line-height: 2rem;
+  top: 11px;
+  margin: 0 9px;
+}
