@@ -12,6 +12,7 @@ const NO_RAIN = 0;
 const LIGHT_RAIN = 1;
 const NORMAL_RAIN = 2;
 const HEAVY_RAIN = 3;
+const TROPICAL_STORM = 4;
 const RIVER = 1;
 const roller = new DiceRoller();
 
@@ -49,6 +50,22 @@ class App extends Component {
     }
 
     this.updateWaterTotalFromContainers();
+  }
+
+  determineWeather() {
+    roller.roll('1d20');
+    let weatherRoll = roller.log.shift().total;
+    let newState = Object.assign({}, this.state);
+    if(weatherRoll > 16 && weatherRoll != 20) {
+      newState.weather.rain = HEAVY_RAIN;
+    } else if (weatherRoll == 20) {
+      newState.weather.rain = TROPICAL_STORM;
+    } else if (weatherRoll == 1) {
+      newState.weather.rain = NO_RAIN;
+    } else {
+      newState.weather.rain = NORMAL_RAIN;
+    }
+    this.setState(newState);
   }
 
   runOvernight() {
