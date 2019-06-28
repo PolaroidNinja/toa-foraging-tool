@@ -1,7 +1,11 @@
-.counter-large {
-  font-size: 3rem;
-  position: relative;
-  line-height: 2rem;
-  top: 11px;
-  margin: 0 9px;
+.weather {
+  min-height: 170px;
+}
+
+.banner {
+  background-image: url('/assets/images/banner.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  box-shadow: none;
 }

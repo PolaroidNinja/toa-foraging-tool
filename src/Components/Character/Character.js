@@ -5,9 +5,16 @@ import { Row, Select, Card, TextInput } from 'react-materialize';
 
 export class Character extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return <>
-    <Card title={this.props.character.name}>
+    <Card actions={<a onClick={() => {this.props.remove(this.props.index)}}>Remove</a>}>
+      <Row>
+        <h4 class="characterName" contenteditable="true">{this.props.character.name}</h4>
+      </Row>
       <Row>
         <TextInput label="Survival" value={this.props.character.survival.toString()} onChange={(e) => {this.props.updateCharacter(this.props.index, 'survival', e.target.value);}}/>
         <TextInput label="Wisdom Mod" value={this.props.character.wisdom.toString()} onChange={(e) => {this.props.updateCharacter(this.props.index, 'wisdom', e.target.value);}}/>

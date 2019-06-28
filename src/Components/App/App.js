@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import '../../../node_modules/materialize-css/dist/css/materialize.min.css';
 import M from '../../../node_modules/materialize-css/dist/js/materialize.min.js';
-import { Navbar, NavItem, Row, TextInput, Card, CardTitle, Col, Button, Select, Toast } from 'react-materialize';
+import { Navbar, NavItem, Row, TextInput, Card, CardTitle, Col, Button, Select, Badge } from 'react-materialize';
 import {Counter} from '../Counter';
 import {Character} from '../Character';
 import { DiceRoller } from 'rpg-dice-roller';
@@ -179,19 +179,40 @@ class App extends Component {
     this.setState(stateUpdate);
   }
 
+  removeCharacter(index) {
+    let stateUpdate = Object.assign({}, this.state);
+    stateUpdate.characters.splice(index, 1);
+    this.setState(stateUpdate);
+  }
+
+  addCharacter({name=`Character ${this.state.characters.length + 1}`, survival="0", wisdom=0, role="idle"} = {}) {
+    let stateUpdate = Object.assign({}, this.state);
+    stateUpdate.characters.push({name: name, survival: survival, wisdom: wisdom, role: role});
+    this.setState(stateUpdate);
+  }
+
   render() {
     return <div className="App">
-      <Navbar brand={<a href="/">Tomb of Annahilation</a>} alignLinks="right">
-        <NavItem>
-          Getting started
-        </NavItem>
-        <NavItem href="components.html">
-          Components
-        </NavItem>
+      <Navbar className="banner" brand={<a href="/">Tomb of Annahilation</a>} alignLinks="right">
+
       </Navbar>
-      <header>
-        <h1>Resource Tracker</h1>
-      </header>
+      <Row>
+        <Col m={4} s={12}>
+          <header>
+            <h1>Resource Tracker</h1>
+          </header>
+        </Col>
+        <Col m={8} s={12}>
+          <div class="valign-wrapper weather right">
+            <Badge caption="inches" className="teal lighten-3 black-text">
+              Rain: {this.state.weather.rain}
+            </Badge>
+            <Badge className="orange darken-3 black-text">
+              Heat index: {this.state.weather.heat}
+            </Badge>
+          </div>
+        </Col>
+      </Row>
       <Row>
         <Col m={4} s={12}>
           <Card horizontal header={<CardTitle image="http://dndspeak.com/wp-content/uploads/2018/03/wallpaper-2661116.jpg"/>} title="Food Rations">
@@ -199,12 +220,12 @@ class App extends Component {
           </Card>
         </Col>
         <Col m={4} s={12}>
-          <Card horizontal header={<CardTitle image="https://66.media.tumblr.com/f8103e9361b5551aaa13eee0f83d56da/tumblr_p0w2cpR1qc1qg88oxo1_1280.jpg"/>} title="Water Rations">
+          <Card horizontal header={<CardTitle image="./assets/images/water_rations.jpg"/>} title="Water Rations">
             <Counter value={this.state.total.water} decreaseValue={this.decreaseTotal('water')} increaseValue={this.incrementTotal('water')}/>
           </Card>
         </Col>
         <Col m={4} s={12}>
-          <Card horizontal header={<CardTitle image="https://dungeonsmaster.com/wp-content/uploads/2013/07/potions.jpg"/>} title="Insect Repellant">
+          <Card horizontal header={<CardTitle image="./assets/images/repellant_rations.jpg"/>} title="Insect Repellant">
             <Counter value={this.state.total.repellant} decreaseValue={this.decreaseTotal('repellant')} increaseValue={this.incrementTotal('repellant')}/>
           </Card>
         </Col>
@@ -214,7 +235,7 @@ class App extends Component {
         <h3>Party</h3>
         {this.state.characters.map((character, index) => {
           return <Col m={4} s={12}>
-            <Character character={character} index={index} updateCharacter={this.updateCharacter.bind(this)}/>
+            <Character character={character} index={index} updateCharacter={this.updateCharacter.bind(this)} remove={this.removeCharacter.bind(this)}/>
           </Col>
         })}
       </Row>
@@ -238,7 +259,7 @@ class App extends Component {
         <Button floating icon="exposure_plus_1" className="green" />
         <Button floating icon="exposure_neg_1" className="red" />
         <Button floating icon="brightness_medium" onClick={() => {this.runOvernight()}} className="green" />
-        <Button floating icon="group_add" className="blue" />
+        <Button floating icon="group_add" onClick={() => {this.addCharacter()}}  className="blue" />
       </Button>
     </div>
   };
