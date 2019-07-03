@@ -370,7 +370,14 @@ class App extends Component {
       </Row>
       <hr/>
       <Row>
-        <h3>Party</h3>
+        <Col m={2} s={12}>
+          <h3>Party</h3>
+        </Col>
+        <Col className="valign-wrapper" m={2} s={12}>
+           <Button floating icon="add" onClick={() => {this.addCharacter()}} className="green" />
+        </Col>
+      </Row>
+      <Row>
         {this.state.characters.map((character, index) => {
           return <Col m={3} s={12}>
             <Character character={character} index={index} updateCharacter={this.updateCharacter.bind(this)} remove={this.removeCharacter.bind(this)}/>
@@ -378,7 +385,14 @@ class App extends Component {
         })}
       </Row>
       <Row>
-        <h3>Collectors</h3>
+         <Col m={2} s={12}>
+          <h3>Collectors</h3>
+        </Col>
+        <Col className="valign-wrapper" m={2} s={12}>
+           <Button floating icon="add" onClick={() => {this.addCollector()}} className="green" />
+        </Col>
+      </Row>
+      <Row>
         {this.state.collectors.map((collector, index) => {
           return <Col m={4} s={12}>
             <Container container={collector} index={index} updateContainer={this.updateContainer.bind(this)} remove={this.removeCollector.bind(this)} rate={collector.rate}/>
@@ -386,7 +400,14 @@ class App extends Component {
         })}
       </Row>
       <Row>
-        <h3>Containers</h3>
+        <Col m={2} s={12}>
+          <h3>Containers</h3>
+        </Col>
+        <Col className="valign-wrapper" m={2} s={12}>
+           <Button floating icon="add" onClick={() => {this.addContainer()}} className="green" />
+        </Col>
+      </Row>
+      <Row>
         {this.state.containers.map((container, index) => {
           return <Col m={3} s={12}>
             <Container container={container} index={index} updateContainer={this.updateContainer.bind(this)} remove={this.removeContainer.bind(this)} />
@@ -396,14 +417,14 @@ class App extends Component {
       <Button
           floating
           fab={{direction: 'left'}}
-          icon="menu"
+          icon="map"
           className="red"
           large
         >
-        <Button floating icon="category" onClick={() => {this.addContainer()}} className="green" />
-        <Button floating icon="local_drink" onClick={() => {this.addCollector()}} className="blue" />
+        
+        <Button floating icon="brightness_high" onClick={() => {this.addCollector()}} className="blue" />
         <Button floating icon="brightness_3" onClick={() => {this.runOvernight()}} className="green" />
-        <Button floating icon="group_add" onClick={() => {this.addCharacter()}}  className="blue" />
+        <Button floating icon="cloud" onClick={() => {this.determineWeather()}}  className="blue" />
       </Button>
     </div>
   };
