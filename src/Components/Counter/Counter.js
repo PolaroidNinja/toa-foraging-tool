@@ -6,10 +6,6 @@ import { Button } from 'react-materialize';
 
 export class Counter extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return <><Button floating icon="remove" className="red" onClick={() => {this.props.decreaseValue()}}/>
     <span className="counter-large">{this.props.value}</span>
